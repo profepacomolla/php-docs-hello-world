@@ -7,11 +7,14 @@ $password = "ContraseñaSegura!";
 
 try {
 
-    $pdo = new PDO(
-        "mysql:host=$host;port=3306;dbname=$dbname;charset=utf8mb4",
-        $user,
-        $password
-    );
+    $dsn = "mysql:host=$host;port=3306;dbname=$dbname;charset=utf8mb4";
+
+    $options = [
+        PDO::MYSQL_ATTR_SSL_CA => "/etc/ssl/certs/ca-certificates.crt",
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ];
+
+    $pdo = new PDO($dsn, $user, $password, $options);
 
     echo "CONEXIÓN OK";
 
